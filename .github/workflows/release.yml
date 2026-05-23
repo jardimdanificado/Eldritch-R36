@@ -8,23 +8,47 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04 # Use 20.04 to match glibc 2.31 for ArkOS
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Build Docker Image
-      run: make docker-image
-      
-    - name: Build and Package
-      run: make package
-      
-    - name: Create Release Archive
+    - name: Setup Multiarch and Install Toolchain
       run: |
+        sudo dpkg --add-architecture arm64
+        # Configura as sources para suportar pacotes amd64 e arm64 sem conflito
+        sudo sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+            gcc-aarch64-linux-gnu \
+            g++-aarch64-linux-gnu \
+            binutils-aarch64-linux-gnu \
+            cmake \
+            make \
+            pkg-config \
+            file \
+            libsdl2-dev:arm64 \
+            libopenal-dev:arm64 \
+            libgles2-mesa-dev:arm64
+
+    - name: Build
+      run: |
+        mkdir -p build-r36s
+        cd build-r36s
+        cmake -DCMAKE_TOOLCHAIN_FILE="../toolchain-aarch64.cmake" -DR36S=ON -DCMAKE_BUILD_TYPE=Release -DFINAL_ENABLED=ON -DCMAKE_VERBOSE_MAKEFILE=OFF ../Code
+        make -j$(nproc) Eld
+        
+    - name: Package Release
+      run: |
+        mkdir -p release/
+        cp -r ports/eldritch release/
+        cp build-r36s/Projects/Eld/Eld release/ports/eldritch/eldritch/
         cd release
         zip -r ../eldritch-r36s.zip ./*
-        cd ..
         
     - name: Publish Release
       uses: softprops/action-gh-release@v2
