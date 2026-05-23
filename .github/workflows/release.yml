@@ -59,10 +59,18 @@ jobs:
         cd release
         zip -r ../eldritch-r36s.zip ./*
         
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: eldritch-r36s-zip
+        path: eldritch-r36s.zip
+
     - name: Publish Release
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
+      if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
       with:
+        tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
+        name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'Latest Build' }}
         files: eldritch-r36s.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
