@@ -8,22 +8,27 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Use 20.04 to match glibc 2.31 for ArkOS
+    runs-on: ubuntu-latest
+    container: ubuntu:20.04 # Roda tudo dentro do Ubuntu 20.04 para garantir glibc 2.31
     
     steps:
+    - name: Pre-requisites
+      run: |
+        apt-get update && apt-get install -y git zip unzip
+        
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Setup Multiarch and Install Toolchain
       run: |
-        sudo dpkg --add-architecture arm64
+        dpkg --add-architecture arm64
         # Configura as sources para suportar pacotes amd64 e arm64 sem conflito
-        sudo sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
-        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list
-        sudo apt-get update
-        sudo apt-get install -y --no-install-recommends \
+        sed -i 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal main restricted universe multiverse" >> /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-updates main restricted universe multiverse" >> /etc/apt/sources.list
+        echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports focal-security main restricted universe multiverse" >> /etc/apt/sources.list
+        apt-get update
+        apt-get install -y --no-install-recommends \
             gcc-aarch64-linux-gnu \
             g++-aarch64-linux-gnu \
             binutils-aarch64-linux-gnu \
