@@ -1,0 +1,41 @@
+{
+  "version": "1.0.2",
+  "name": "eldritch-r36.zip",
+  "items": [
+    "eldritch",
+    "eldritch"
+  ],
+  "items_opt": [],
+  "attr": {
+    "title": "eldritch",
+    "porter": [
+      "jardimdanificado"
+    ],
+    "desc": "A first-person action game inspired by roguelikes, immersive sims, and H. P. Lovecraft.",
+    "desc_md": "A first-person action game inspired by roguelikes, immersive sims, and H. P. Lovecraft.",
+    "inst": "buy the game, put the port files at ports/, then copy all the game *.cpk files to ports/eldritch/ where the \"Eld\" file is.",
+    "inst_md": "1. buy the game\n2. put the port files at ports/\n3. copy all the game *.cpk files to ports/eldritch/ (where the \"Eld\" file is)\n4. ready to go!",
+    "genres": [
+      "rpg"
+    ],
+    "image": null,
+    "rtr": false,
+    "exp": false,
+    "runtime": [],
+    "store": [
+      {
+        "name": "steam",
+        "gameurl": "https://store.steampowered.com/app/252630/Eldritch/",
+        "developerurl": "https://www.minorkeygames.com/"
+      }
+    ],
+    "availability": "paid",
+    "reqs": [
+      "hires"
+    ],
+    "arch": [
+      "aarch64"
+    ],
+    "min_glibc": ""
+  }
+}

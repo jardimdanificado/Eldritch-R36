@@ -1,8 +1,8 @@
-# Eldritch — R36S PortMaster Port
+# Eldritch — R36S Port
 
-**Eldritch** is a Lovecraftian first-person roguelike by Minor Key Games (David Pittman).
+**Eldritch** is a Lovecraftian first-person roguelike by Minor Key Games.
 
-> ⚠️ **This port requires game files from a purchased copy of Eldritch.**
+> **This port requires game files from a purchased copy of Eldritch.**
 > The engine is open source (zlib license); the game content is not included.
 
 ---
@@ -23,17 +23,9 @@ Copy the entire `eldritch/` folder to your SD card:
 
 ### 2. Add game data files
 
-Purchase Eldritch from [Steam](https://store.steampowered.com/app/252900/Eldritch/) or [GOG](https://www.gog.com/game/eldritch).
+Purchase Eldritch from [Steam](https://store.steampowered.com/app/252900/Eldritch/).
 
-Copy the following `.cpk` files from your Eldritch installation into `/roms/ports/eldritch/eldritch/`:
-
-| File | Required? |
-|---|---|
-| `eldritch-base.cpk` | ✅ Yes |
-| `eldritch-audio.cpk` | ✅ Yes |
-| `eldritch-textures.cpk` | ✅ Yes |
-| `eldritch-meshes.cpk` | ✅ Yes |
-| `eldritch-world.cpk` | ✅ Yes |
+Copy all the `.cpk` files from your Eldritch installation into `/roms/ports/eldritch/`.
 
 **Steam location (Linux):**
 ```
@@ -85,4 +77,3 @@ Saves are stored in `/roms/ports/eldritch/userdata/`.
 
 - **Eldritch** by [Minor Key Games](https://eldritchgame.com/) — released under zlib license
 - **OpenPandora port** by [ptitSeb](https://github.com/ptitSeb/Eldritch) (GLES2 + OpenAL)
-- **R36S adaptation**: community port
