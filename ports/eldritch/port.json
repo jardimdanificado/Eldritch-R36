@@ -2,16 +2,24 @@
   "name": "Eldritch",
   "version": "1.0.0",
   "author": "Minor Key Games (David Pittman) | R36S port by community",
-  "source": "https://github.com/ptitSeb/Eldritch",
+  "source": "https://github.com/jardimdanificado/Eldritch-R36",
   "license": "zlib",
   "md5": "",
   "note": "Eldritch is a Lovecraftian roguelike FPS. The engine is open source (zlib license). Game content (.cpk files) requires a purchased copy (Steam/GOG).",
-  "genres": ["action", "roguelike", "fps"],
+  "genres": [
+    "action",
+    "roguelike",
+    "fps"
+  ],
   "porter": "",
   "runtime": "",
   "runtimes": [],
-  "arch": ["aarch64"],
-  "devices": ["r36s"],
+  "arch": [
+    "aarch64"
+  ],
+  "devices": [
+    "r36s"
+  ],
   "reqs": {
     "content": {
       "eldritch-base.cpk": "Required — from Steam/GOG",

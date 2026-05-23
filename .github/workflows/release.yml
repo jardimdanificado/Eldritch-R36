@@ -54,8 +54,8 @@ jobs:
     - name: Package Release
       run: |
         mkdir -p release/
-        cp -r ports/eldritch release/
-        cp build-r36s/Projects/Eld/Eld release/ports/eldritch/eldritch/
+        cp -r ports/eldritch/* release/
+        cp build-r36s/Projects/Eld/Eld release/eldritch/
         cd release
         zip -r ../eldritch-r36s.zip ./*
         
