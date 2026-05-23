@@ -1,0 +1,63 @@
+Eldritch
+
+Copyright © 2019 Minor Key Games, LLC. All rights reserved.
+
+
+
+Minor Key Games "Plain English" License Agreement
+
+By purchasing, downloading, installing, and/or playing this game, you agree to the following:
+
+1. You can install this game on as many of your own personal devices as you'd like.
+2. You can make as many personal backups as you'd like.
+3. You can stream or record this game for sites such as YouTube or Twitch, and you are free to monetize these videos.
+4. If you run a LAN gaming event or other similar public event, you can play or demo the game at that event, or make the game available to others at the location for the duration of the event.
+5. You can share the game with your friends and family for the purpose of letting them try the game before they buy it.
+6. You can mod the game however you like.
+7. We believe that DRM is harmful to gaming culture and ineffective in combating piracy. For these reasons, we do not include DRM in our games. We ask that you respect this decision by not pirating this game. If you have obtained this copy via piracy, consider making a purchase.
+
+
+
+Your use of this software is subject to this license agreement (the "Agreement") and the terms set forth below. The "Software" includes the program code, asset packages, and/or documentation files. By purchasing, downloading, installing, and/or using the Software, you agree to accept and abide by the terms of this Agreement with Minor Key Games, LLC (the "Licensor").
+
+The Licensor grants you the right and license to:
+
+(a) install and use the Software on any number of personal computers or gaming devices;
+
+(b) make backup or archival copies of the Software for personal use provided that the text of this copyright notice and license agreement is included in any copy;
+
+(c) record and/or stream footage of the Software, including for monetary gain;
+
+(d) use the Software at computer gaming centers or other location-based sites;
+
+(e) display or demo the Software for public use or viewing;
+
+(f) provide copies of the Software for trial or evaluation purposes to friends and family;
+
+(g) make and/or distribute modifications to the Software, provided that the modifications do not function without an original copy of the Software.
+
+You agree not to:
+
+(a) publish, distribute, sublicense, sell, torrent, or otherwise make available copies of the Software for any purpose except as allowed above.
+
+The Software is provided "as is," without warranty of any kind. The Licensor assumes no liability or responsibility for damages resulting from the use of the Software or of any third-party modifications to the Software.
+
+
+
+Simple DirectMedia Layer (SDL 2.0) copyright © 1997-2013 Sam Lantinga.
+
+
+
+zlib copyright © 1995-2013 Jean-loup Gailly and Mark Adler.
+
+
+
+TinyXML copyright © 2000-2006 Lee Thomason.
+
+
+
+SoLoud copyright © 2013-2015 Jari Komppa.
+
+
+
+Ogg Vorbis audio decoder copyright © 2017 Sean Barrett.

@@ -168,8 +168,9 @@ void Framework3D::Main()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-	// SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	// SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 #endif
 #endif
 
@@ -212,6 +213,9 @@ void Framework3D::Main()
 #ifdef PANDORA
 	m_FixedFrameTime = 1.0f / 14.0f;  // 60fps cannot be sustained on the Pandora
 #endif
+#ifdef R36S
+	m_FixedFrameTime = 1.0f / 30.0f;  // Target 30fps on R36S (Cortex-A35 @ 1.5GHz)
+#endif
 
 	STATICHASH( FramesLimit );
 	const int FramesLimit = ConfigManager::GetInt( sFramesLimit, 5, sFramework );
@@ -224,6 +228,9 @@ void Framework3D::Main()
 	m_VideoCaptureFixedFrameTime = ConfigManager::GetFloat( sVideoCaptureFixedFrameTime, 1.0f / 30.0f, sFramework );
 #ifdef PANDORA
 	sVideoCaptureFixedFrameTime = 1.0f / 8.0f;  // 30fps cannot be sustained on the Pandora (even 10fps I'm not sure)
+#endif
+#ifdef R36S
+	m_VideoCaptureFixedFrameTime = 1.0f / 15.0f;  // Video capture at 15fps on R36S
 #endif
 
 	uint WindowWidth = 0;

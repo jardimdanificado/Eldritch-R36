@@ -8,3 +8,6 @@ install_manifest.txt
 /build
 /Code/build
 /.vscode
+*.cpk
+build-r36/Projects/Eld
+ports/eldritch/eldritch/Eld

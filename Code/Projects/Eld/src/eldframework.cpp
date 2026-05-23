@@ -1812,7 +1812,9 @@ void EldFramework::PrepareForLoad()
 	PRINTF( "EldFramework::ToggleFullscreen\n" );
 
 #ifndef PANDORA
+#ifndef R36S
 	Framework3D::ToggleFullscreen();
+#endif
 #endif
 
 	// For fullscreen upscaling, we may need a new m_UpscaleView
@@ -2076,6 +2078,17 @@ void EldFramework::GoToLevel( const HashedString& WorldDef )
 	// Changed from legacy so files are not saved in the same place!
 	return ObjCJunk::GetUserDirectory( UserPathAppName );
 #elif BUILD_LINUX
+#ifdef R36S
+	// On ArkOS/PortMaster the port runs from /roms/ports/eldritch/
+	// Keep saves relative to the port directory for portability.
+	const char* const PortMasterHome = getenv( "PORTMASTER_HOME" );
+	if( PortMasterHome )
+	{
+		return SimpleString::PrintF( "%s/eldritch/userdata/", PortMasterHome );
+	}
+	// Fallback: save next to the binary (working directory)
+	return SimpleString( "./userdata/" );
+#else
 	const char* const XDGDataHome = getenv( "XDG_DATA_HOME" );
 	if( XDGDataHome )
 	{
@@ -2090,6 +2103,7 @@ void EldFramework::GoToLevel( const HashedString& WorldDef )
 
 	// Fall back to the local directory; same as legacy, but this shouldn't happen anyway
 	return SimpleString( "./" );
+#endif
 #elif defined(__amigaos4__)
 	return SimpleString("PROGDIR:.eldritch/");
 #elif BUILD_WINDOWS

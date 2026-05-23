@@ -40,7 +40,8 @@ byte* ConvertShader( byte* pBuffer )
 	{
 		while( *newptr != 0x0a ) ++newptr;
 	}
-	const char*	GLESHeader = "#version 100\nprecision mediump float;\n";
+	// R36S/Mali-G31: precisamos de `highp` para que os cálculos do Vertex Shader e Z-Buffer não percam toda a precisão!
+	const char*	GLESHeader = "#version 100\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
 	byte*		Tmp = new byte[ strlen( (char*)newptr ) + strlen( GLESHeader ) + 200 ];
 	strcat( strcpy( (char*)Tmp, GLESHeader ), newptr );
 	// now check to remove trailing "f" after float, as it's not supported too

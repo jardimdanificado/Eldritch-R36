@@ -37,8 +37,13 @@
 		ASSERT( GLEW_ARB_texture_rg );
 		return GL_RG32F;
 #endif
+#ifdef HAVE_GLES
+	case ERTF_D24S8:
+		return GL_DEPTH_COMPONENT16;
+#else
 	case ERTF_D24S8:
 		return GL_DEPTH24_STENCIL8;
+#endif
 	default:
 		WARNDESC( "GL texture format not matched" );
 		return 0;
@@ -293,13 +298,15 @@ void GL2RenderTarget::CreateFBO()
 		const GLuint	ColorTextureObject	= TextureObjectIter.GetValue();
 		glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + TextureIndex, GL_TEXTURE_2D, ColorTextureObject, 0 );
 		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_DepthStencilRenderBufferObject );
-		glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthStencilRenderBufferObject );
+		// Em GLES 2.0, anexar um GL_DEPTH_COMPONENT24_OES a um GL_STENCIL_ATTACHMENT invalida o FBO. O Eldritch não usa stencil.
+		// glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_DepthStencilRenderBufferObject );
 		GLERRORCHECK;
 	}
 
 	const GLenum FrameBufferStatus = glCheckFramebufferStatus( GL_FRAMEBUFFER );
-	ASSERT( FrameBufferStatus == GL_FRAMEBUFFER_COMPLETE );
-	Unused( FrameBufferStatus );
+	if (FrameBufferStatus != GL_FRAMEBUFFER_COMPLETE) {
+		PRINTF("FBO INCOMPLETO [R36S] Erro: 0x%04X\n", FrameBufferStatus);
+	}
 #else
 	// FBOs were supported in GL 2.1 only by extension, but some newer drivers
 	// don't still support that extension. Use whichever is available.

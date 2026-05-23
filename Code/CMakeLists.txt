@@ -3,9 +3,22 @@ cmake_minimum_required(VERSION 3.0)
 project(Eldritch)
 
 option(PANDORA "Set to ON if targeting an OpenPandora device" ${PANDORA})
+option(R36S "Set to ON if targeting an R36S (ArkOS/PortMaster) device" ${R36S})
 option(GLES "Set to ON if using GLES2 instead of desktop OpenGL" ${GLES})
 option(DEBUG_ENABLED "Build a DEBUG version (if not, then it's a RELEASE version)" ${DEBUG_ENABLED})
 option(FINAL_ENABLED "Build a FINAL version" ${FINAL_ENABLED})
+
+# R36S auto-enables its required options
+if(R36S)
+	set(GLES ON CACHE BOOL "" FORCE)
+	set(WITH_SDL2 ON CACHE BOOL "" FORCE)
+	set(WITH_OPENAL ON CACHE BOOL "" FORCE)
+	add_definitions(-DR36S)
+	# Rockchip RK3326: ARM Cortex-A35 aarch64
+	set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -march=armv8-a -mtune=cortex-a35")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=armv8-a -mtune=cortex-a35")
+	message(STATUS "R36S target: enabling GLES2 + SDL2 + OpenAL, tuning for Cortex-A35")
+endif()
 
 option(WITH_SDL2 "Use SDL2 as the sound backend" ${WITH_SDL2})
 option(WITH_SDL "Use SDL as the sound backend" ${WITH_SDL})
@@ -24,6 +37,9 @@ option(WITH_COREAUDIO "Use COREAUDIO as the sound backend" ${WITH_COREAUDIO})
 
 if(PANDORA)
 	add_definitions(-DPANDORA)
+endif()
+if(R36S)
+	add_definitions(-DHAVE_GLES)
 endif()
 if(GLES)
 	add_definitions(-DHAVE_GLES)
