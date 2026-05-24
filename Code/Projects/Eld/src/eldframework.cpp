@@ -288,18 +288,6 @@ void EldFramework::InitializePackagesAndConfig()
 	InitializePackages();
 	InitializeDLC();
 
-#if BUILD_LINUX
-	// Override defaults with R36S/Linux gamepad mappings
-	ConfigManager::SetString( "UseWeapon", "xA", "EldritchController" );
-	ConfigManager::SetString( "Jump", "xB", "EldritchController" );
-	ConfigManager::SetString( "Frob", "xX", "EldritchController" );
-	ConfigManager::SetString( "DropWeapon", "xY", "EldritchController" );
-	ConfigManager::SetString( "Run", "LB", "EldritchController" );
-	ConfigManager::SetString( "Crouch", "RB", "EldritchController" );
-	ConfigManager::SetString( "UsePower", "LT", "EldritchController" );
-	ConfigManager::SetString( "CycleUp", "RT", "EldritchController" );
-#endif
-
 	// Load prefs over everything else.
 	LoadPrefsConfig();
 
@@ -1435,15 +1423,6 @@ void EldFramework::WritePrefsConfig()
 	Framework3D::TickDevices();
 
 	m_Controller->Tick( 0.0f );
-
-#if BUILD_LINUX
-	// PortMaster shortcut: Select + Start to hard quit
-	if( m_Controller->IsHigh( XInputController::EB_Start ) && m_Controller->IsHigh( XInputController::EB_Back ) )
-	{
-		WB_MAKE_EVENT( QuitGame, NULL );
-		WB_DISPATCH_EVENT( WBWorld::GetInstance()->GetEventManager(), QuitGame, NULL );
-	}
-#endif
 
 	// If we're using either controller or mouse exclusively, allow or disallow the cursor as needed.
 	const bool IsUsingController	= m_Controller->ReceivedInputThisTick();

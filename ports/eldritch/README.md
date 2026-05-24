@@ -43,22 +43,6 @@ Eldritch will appear in PortMaster (or directly in the Ports section of your fro
 
 ---
 
-## Controls (R36S)
-
-| Action | Button |
-|---|---|
-| Move | Left Stick / D-Pad |
-| Look | Right Stick |
-| Attack / Use | A |
-| Jump | B |
-| Crouch | R1 |
-| Interact (Frob) | X |
-| Inventory | Y |
-| Pause / Menu | Start |
-| Sprint | L1 |
-
----
-
 ## Save Data
 
 Saves are stored in `/roms/ports/eldritch/userdata/`.
@@ -66,10 +50,6 @@ Saves are stored in `/roms/ports/eldritch/userdata/`.
 ---
 
 ## Known Issues
-
-- Resolution is fixed at 640×480 (R36S native screen)
-- Target frame rate is 30fps (Cortex-A35 @ 1.5GHz)
-- Mouse cursor is not visible (controller-only mode)
 
 ---
 
