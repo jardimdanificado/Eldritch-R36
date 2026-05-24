@@ -5,7 +5,7 @@ set -e
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 IMAGE_NAME="eldritch-r36s"
 BINARY_SRC="$REPO_DIR/build-r36s/Projects/Eld/Eld"
-PORT_DIR="$REPO_DIR/ports/eldritch"
+PORT_DIR="$REPO_DIR/ports/eldritch/eldritch"
 
 echo "================================================="
 echo "  Eldritch R36S PortMaster — Build Script"
@@ -46,7 +46,7 @@ if [ "$CPK_COUNT" -gt 0 ]; then
     echo "  Done."
 else
     echo "  WARNING: No .cpk files found in Data/."
-    echo "  Copy your Eldritch .cpk files to ports/eldritch/ manually."
+    echo "  Copy your Eldritch .cpk files to ports/eldritch/eldritch/ manually."
 fi
 
 echo ""
