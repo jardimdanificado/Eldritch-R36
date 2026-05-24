@@ -288,6 +288,18 @@ void EldFramework::InitializePackagesAndConfig()
 	InitializePackages();
 	InitializeDLC();
 
+#if BUILD_LINUX
+	// Override defaults with R36S/Linux gamepad mappings
+	ConfigManager::SetString( "UseWeapon", "xA", "EldritchController" );
+	ConfigManager::SetString( "Jump", "xB", "EldritchController" );
+	ConfigManager::SetString( "Frob", "xX", "EldritchController" );
+	ConfigManager::SetString( "DropWeapon", "xY", "EldritchController" );
+	ConfigManager::SetString( "Run", "LB", "EldritchController" );
+	ConfigManager::SetString( "Crouch", "RB", "EldritchController" );
+	ConfigManager::SetString( "UsePower", "LT", "EldritchController" );
+	ConfigManager::SetString( "CycleUp", "RT", "EldritchController" );
+#endif
+
 	// Load prefs over everything else.
 	LoadPrefsConfig();
 

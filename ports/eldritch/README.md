@@ -23,7 +23,7 @@ Copy the entire `eldritch/` folder to your SD card:
 
 ### 2. Add game data files
 
-Purchase Eldritch from [Steam](https://store.steampowered.com/app/252900/Eldritch/).
+Purchase Eldritch from [Steam](https://store.steampowered.com/app/252630/Eldritch/).
 
 Copy all the `.cpk` files from your Eldritch installation into `/roms/ports/eldritch/`.
 
