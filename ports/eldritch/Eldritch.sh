@@ -49,14 +49,12 @@ mkdir -p "$GAMEDIR/userdata"
 PREFS="$GAMEDIR/userdata/prefs.cfg"
 if [ ! -f "$PREFS" ]; then
     cat > "$PREFS" << 'EOF'
-DisplayWidth = 640
-DisplayHeight = 480
 Fullscreen = true
 VSync = false
 FXAA = false
 UpscaleFullscreen = false
 EOF
-    echo "[Eldritch] Created default prefs.cfg (640x480 fullscreen)" >> "$GAMEDIR/log.txt"
+    echo "[Eldritch] Created default prefs.cfg" >> "$GAMEDIR/log.txt"
 fi
 
 # ---------------------------------------------------------------------------
@@ -67,11 +65,11 @@ $ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
 # Launch the game
 printf "[Eldritch] Starting...\n" >> "$GAMEDIR/log.txt"
 
-$GPTOKEYB "Eld" -c "$controlfolder/mapping/default.gptk" &
+# $GPTOKEYB "Eld" -c "$GAMEDIR/eldritch.gptk" &
 ./Eld >> "$GAMEDIR/log.txt" 2>&1
 
 # Cleanup
-$ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
+# $ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
 $ESUDO systemctl restart oga_events 2>/dev/null || true
 
 printf "[Eldritch] Exited.\n" >> "$GAMEDIR/log.txt"
