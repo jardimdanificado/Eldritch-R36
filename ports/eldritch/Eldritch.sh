@@ -67,7 +67,7 @@ $ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
 # Launch the game
 printf "[Eldritch] Starting...\n" >> "$GAMEDIR/log.txt"
 
-$GPTOKEYB "Eld" -c "$controlfolder/mapping/default.gptk" &
+$GPTOKEYB "Eld" -c "$GAMEDIR/eldritch.gptk" &
 ./Eld >> "$GAMEDIR/log.txt" 2>&1
 
 # Cleanup
