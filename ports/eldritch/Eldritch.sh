@@ -1,5 +1,5 @@
 #!/bin/bash
-# Eldritch.sh — PortMaster launch script for R36S (ArkOS)
+# Eldritch.sh — PortMaster launch script
 # Place this file in: /roms/ports/Eldritch.sh
 
 XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
@@ -22,15 +22,9 @@ GAMEDIR="$(dirname "$(readlink -f "$0")")/eldritch"
 export PORTMASTER_HOME="$(dirname "$(readlink -f "$0")")"
 
 cd "$GAMEDIR"
-> "$GAMEDIR/log.txt" 2>&1
+> "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
-# ---------------------------------------------------------------------------
-# R36S/ArkOS video config
-# ArkOS uses KMS/DRM — NOT "mali" (that was OpenPandora only)
-# Leave SDL_VIDEODRIVER unset so SDL2 auto-detects (usually kmsdrm or fbdev).
-# Uncomment only if SDL fails to detect:
-# export SDL_VIDEODRIVER=kmsdrm
-# ---------------------------------------------------------------------------
+# Video config
 unset SDL_VIDEODRIVER
 
 # Audio config
@@ -39,12 +33,7 @@ export SDL_AUDIODRIVER="${SDL_AUDIODRIVER:-alsa}"
 # Library path
 export LD_LIBRARY_PATH="$GAMEDIR/lib:$LD_LIBRARY_PATH"
 
-# ---------------------------------------------------------------------------
-# Pre-create prefs.cfg so the game starts at the correct resolution (640x480)
-# without needing a first-run resolution change cycle.
-# Format from ConfigManager::Write(): "Key = Value\n"
-# This file is loaded from GetUserDataPath() = $PORTMASTER_HOME/eldritch/userdata/
-# ---------------------------------------------------------------------------
+# Create prefs.cfg
 mkdir -p "$GAMEDIR/userdata"
 PREFS="$GAMEDIR/userdata/prefs.cfg"
 if [ ! -f "$PREFS" ]; then
@@ -54,22 +43,15 @@ VSync = false
 FXAA = false
 UpscaleFullscreen = false
 EOF
-    echo "[Eldritch] Created default prefs.cfg" >> "$GAMEDIR/log.txt"
+    echo "[Eldritch] Created default prefs.cfg"
 fi
 
-# ---------------------------------------------------------------------------
-# Controller support
-# ---------------------------------------------------------------------------
-$ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
-
 # Launch the game
-printf "[Eldritch] Starting...\n" >> "$GAMEDIR/log.txt"
+printf "[Eldritch] Starting...\n"
 
-# $GPTOKEYB "Eld" -c "$GAMEDIR/eldritch.gptk" &
-./Eld >> "$GAMEDIR/log.txt" 2>&1
+$GPTOKEYB "Eld" -c "$GAMEDIR/eldritch.gptk" &
+./Eld
 
 # Cleanup
-# $ESUDO kill -9 $(pidof gptokeyb) 2>/dev/null || true
-$ESUDO systemctl restart oga_events 2>/dev/null || true
-
-printf "[Eldritch] Exited.\n" >> "$GAMEDIR/log.txt"
+printf "[Eldritch] Exited.\n"
+pm_finish

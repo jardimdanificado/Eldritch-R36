@@ -1,6 +1,4 @@
 #!/bin/bash
-# Entrypoint do container Docker — compila o Eldritch para aarch64 (R36S)
-# O diretório /src é o repo montado via -v
 
 set -e
 
@@ -11,7 +9,6 @@ echo "============================================="
 BUILD_DIR="/src/build-r36s"
 TOOLCHAIN="/src/toolchain-aarch64.cmake"
 
-# Limpa build anterior se existir
 if [ -d "$BUILD_DIR" ]; then
     echo "[INFO] Removing previous build directory..."
     rm -rf "$BUILD_DIR"
