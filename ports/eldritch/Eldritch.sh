@@ -2,8 +2,6 @@
 # Eldritch.sh — PortMaster launch script
 # Place this file in: /roms/ports/Eldritch.sh
 
-XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
-
 # PortMaster standard environment
 if [ -d "/opt/system/Tools/PortMaster/" ]; then
     controlfolder="/opt/system/Tools/PortMaster"
@@ -25,7 +23,11 @@ cd "$GAMEDIR"
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
 # Video config
+# let sdl decide the video driver
 unset SDL_VIDEODRIVER
+
+# uncomment this just in case sdl cant find the driver
+# export SDL_VIDEODRIVER=kmsdrm
 
 # Audio config
 export SDL_AUDIODRIVER="${SDL_AUDIODRIVER:-alsa}"

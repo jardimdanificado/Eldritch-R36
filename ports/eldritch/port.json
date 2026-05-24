@@ -1,13 +1,13 @@
 {
-  "version": "1.0.4",
+  "version": "4",
   "name": "eldritch-r36.zip",
   "items": [
     "eldritch",
-    "eldritch"
+    "Eldritch.sh"
   ],
   "items_opt": [],
   "attr": {
-    "title": "eldritch",
+    "title": "Eldritch",
     "porter": [
       "jardimdanificado"
     ],
@@ -16,7 +16,8 @@
     "inst": "buy the game, put the port files at ports/, then copy all the game *.cpk files to ports/eldritch/ where the \"Eld\" file is.",
     "inst_md": "1. buy the game\n2. put the port files at ports/\n3. copy all the game *.cpk files to ports/eldritch/ (where the \"Eld\" file is)\n4. ready to go!",
     "genres": [
-      "rpg"
+      "action",
+      "fps"
     ],
     "image": null,
     "rtr": false,
@@ -30,9 +31,7 @@
       }
     ],
     "availability": "paid",
-    "reqs": [
-      ""
-    ],
+    "reqs": [],
     "arch": [
       "aarch64"
     ],
