@@ -1,42 +1,31 @@
 #!/bin/bash
-# Eldritch.sh — PortMaster launch script
-# Place this file in: /roms/ports/Eldritch.sh
 
-# PortMaster standard environment
+XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+
 if [ -d "/opt/system/Tools/PortMaster/" ]; then
-    controlfolder="/opt/system/Tools/PortMaster"
+  controlfolder="/opt/system/Tools/PortMaster"
 elif [ -d "/opt/tools/PortMaster/" ]; then
-    controlfolder="/opt/tools/PortMaster"
-elif [ -d "$HOME/PortMaster/" ]; then
-    controlfolder="$HOME/PortMaster"
+  controlfolder="/opt/tools/PortMaster"
+elif [ -d "$XDG_DATA_HOME/PortMaster/" ]; then
+  controlfolder="$XDG_DATA_HOME/PortMaster"
 else
-    controlfolder="/roms/ports/PortMaster"
+  controlfolder="/roms/ports/PortMaster"
 fi
 
-source "$controlfolder/control.txt"
+source $controlfolder/control.txt
+[ -f "${controlfolder}/mod_${CFW_NAME}.txt" ] && source "${controlfolder}/mod_${CFW_NAME}.txt"
 get_controls
 
-GAMEDIR="$(dirname "$(readlink -f "$0")")/eldritch"
-export PORTMASTER_HOME="$(dirname "$(readlink -f "$0")")"
+GAMEDIR="/$directory/ports/eldritch"
 
 cd "$GAMEDIR"
+
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
-# Video config
-# let sdl decide the video driver
-unset SDL_VIDEODRIVER
+export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
 
-# uncomment this just in case sdl cant find the driver
-# export SDL_VIDEODRIVER=kmsdrm
-
-# Audio config
-export SDL_AUDIODRIVER="${SDL_AUDIODRIVER:-alsa}"
-
-# Library path
-export LD_LIBRARY_PATH="$GAMEDIR/lib:$LD_LIBRARY_PATH"
-
-# Create prefs.cfg
-mkdir -p "$GAMEDIR/userdata"
+# Create prefs.cfg if it does not yet exist
+[ ! -d "$GAMEDIR/userdata" ] && mkdir -p "$GAMEDIR/userdata"
 PREFS="$GAMEDIR/userdata/prefs.cfg"
 if [ ! -f "$PREFS" ]; then
     cat > "$PREFS" << 'EOF'
@@ -48,12 +37,8 @@ EOF
     echo "[Eldritch] Created default prefs.cfg"
 fi
 
-# Launch the game
-printf "[Eldritch] Starting...\n"
-
 $GPTOKEYB "Eld" -c "$GAMEDIR/eldritch.gptk" &
+pm_platform_helper "$GAMEDIR/Eld"
 ./Eld
 
-# Cleanup
-printf "[Eldritch] Exited.\n"
 pm_finish
